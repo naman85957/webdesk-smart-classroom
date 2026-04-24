@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import api from '../api';   // adjust path if needed
+import api from '../api';
 
 const AuthContext = createContext(null);
 
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       fetchUser();
     } else {
       setLoading(false);
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     const res = await api.post('/auth/login', { email, password });
     const { token: t, user: u } = res.data;
     localStorage.setItem('webdesk_token', t);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${t}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${t}`;
     setToken(t);
     setUser(u);
     return u;
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     const res = await api.post('/auth/register', data);
     const { token: t, user: u } = res.data;
     localStorage.setItem('webdesk_token', t);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${t}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${t}`;
     setToken(t);
     setUser(u);
     return u;
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('webdesk_token');
-    delete axios.defaults.headers.common['Authorization'];
+    delete api.defaults.headers.common['Authorization'];
     setToken(null);
     setUser(null);
   };
