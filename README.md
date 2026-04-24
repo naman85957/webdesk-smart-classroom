@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎓 Webdesk — Smart Classroom System
 
 A full-stack web application that brings all classroom tools under one roof for students and teachers.
@@ -267,3 +268,6 @@ npm run client   # Frontend on http://localhost:3000
 ---
 
 Built with ❤️ using React.js, Node.js & MongoDB
+=======
+# webdesk-smart-classroom
+>>>>>>> 4d48c636190729d46baeabec732bf63964d53126
