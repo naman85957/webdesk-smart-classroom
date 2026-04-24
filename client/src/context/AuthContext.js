@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';   // adjust path if needed
 
 const AuthContext = createContext(null);
 
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const res = await axios.get('/api/auth/me');
+      const res = await api.get('/auth/me');
       setUser(res.data);
     } catch {
       logout();
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    const res = await axios.post('/api/auth/login', { email, password });
+    const res = await api.post('/auth/login', { email, password });
     const { token: t, user: u } = res.data;
     localStorage.setItem('webdesk_token', t);
     axios.defaults.headers.common['Authorization'] = `Bearer ${t}`;
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (data) => {
-    const res = await axios.post('/api/auth/register', data);
+    const res = await api.post('/auth/register', data);
     const { token: t, user: u } = res.data;
     localStorage.setItem('webdesk_token', t);
     axios.defaults.headers.common['Authorization'] = `Bearer ${t}`;
